@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_expenses/components/transaction_form.dart';
 import 'components/transaction_user.dart';
 
 void main() => runApp(ExpensesApp());
@@ -14,6 +13,8 @@ class ExpensesApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,20 +25,21 @@ class MyHomePage extends StatelessWidget {
         ),
         backgroundColor: Colors.blue,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          SizedBox(
-            width: double.infinity,
-            child: Card(
-              color: Colors.blue,
-              elevation: 5,
-              child: Text('Gráfico'),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            SizedBox(
+              width: double.infinity,
+              child: Card(
+                color: Colors.blue,
+                elevation: 5,
+                child: Text('Gráfico'),
+              ),
             ),
-          ),
-          TransactionUser(),
-          
-        ],
+            TransactionUser(),
+          ],
+        ),
       ),
     );
   }
