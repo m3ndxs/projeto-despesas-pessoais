@@ -26,36 +26,6 @@ class _TransactionUserState extends State<TransactionUser> {
       value: 341.20,
       date: DateTime.now(),
     ),
-    Transaction(
-      id: 't45',
-      title: 'Compras #03',
-      value: 341.20,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't3',
-      title: 'Compras #04',
-      value: 341.20,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't4',
-      title: 'Compras #05',
-      value: 341.20,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't5',
-      title: 'Compras #06',
-      value: 341.20,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't6',
-      title: 'Compras #07',
-      value: 341.20,
-      date: DateTime.now(),
-    ),
   ];
 
   dynamic _addTransaction(String title, double value){
