@@ -8,7 +8,7 @@ class ExpensesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: MyHomePage());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: MyHomePage());
   }
 }
 
@@ -23,6 +23,14 @@ class MyHomePage extends StatelessWidget {
           'Despesas Pessoais',
           style: TextStyle(color: Colors.white, fontSize: 22),
         ),
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.add),
+            color: Colors.white,
+            iconSize: 30,
+          ),
+        ],
         backgroundColor: Colors.blue,
       ),
       body: SingleChildScrollView(
@@ -40,6 +48,11 @@ class MyHomePage extends StatelessWidget {
             TransactionUser(),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue,
+        onPressed: () {},
+        child: Icon(Icons.add, color: Colors.white, size: 30),
       ),
     );
   }
