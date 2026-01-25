@@ -8,11 +8,40 @@ import 'models/transaction.dart';
 void main() => runApp(ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
-  const ExpensesApp({super.key});
+  ExpensesApp({super.key});
+
+  final ThemeData tema = ThemeData();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: MyHomePage());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false, 
+      home: MyHomePage(),
+      theme: ThemeData(
+        useMaterial3: false,
+        appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 20,
+          ),
+          backgroundColor: Colors.purple,
+          foregroundColor: Colors.white,
+        ),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.amber,
+          primary: Colors.purple,
+          secondary: Colors.amber,
+        ),
+        fontFamily: 'QuickSand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+          titleLarge: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        )
+      ),
+    );
   }
 }
 
@@ -69,17 +98,16 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(
           'Despesas Pessoais',
-          style: TextStyle(color: Colors.white, fontSize: 22),
+          style: TextStyle(fontSize: 22,),
         ),
         actions: <Widget>[
           IconButton(
             onPressed: () => _openTransactionFormModal(context),
-            icon: Icon(Icons.add),
+            icon: Icon(Icons.add,),
             color: Colors.white,
             iconSize: 30,
           ),
         ],
-        backgroundColor: Colors.blue,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -98,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         onPressed: () => _openTransactionFormModal(context),
         child: Icon(Icons.add, color: Colors.white, size: 30),
       ),
