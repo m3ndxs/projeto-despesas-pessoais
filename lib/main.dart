@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'components/transaction_user.dart';
+import 'package:project_expenses/components/transaction_form.dart';
+
+import 'dart:math';
+import 'components/transaction_list.dart';
+import 'models/transaction.dart';
 
 void main() => runApp(ExpensesApp());
 
@@ -12,8 +16,52 @@ class ExpensesApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final _transactions = [
+    Transaction(
+      id: 't1',
+      title: 'Spider Man 2',
+      value: 200.00,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Compras Supermercado',
+      value: 341.20,
+      date: DateTime.now(),
+    ),
+  ];
+
+  dynamic _addTransaction(String title, double value) {
+    final newTransaction = Transaction(
+      id: Random().nextDouble().toString(),
+      title: title,
+      value: value,
+      date: DateTime.now(),
+    );
+
+    setState(() {
+      _transactions.add(newTransaction);
+    });
+
+    Navigator.of(context).pop();
+  }
+
+  dynamic _openTransactionFormModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) {
+        return TransactionForm(onSubmit: _addTransaction);
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +73,7 @@ class MyHomePage extends StatelessWidget {
         ),
         actions: <Widget>[
           IconButton(
-            onPressed: () {},
+            onPressed: () => _openTransactionFormModal(context),
             icon: Icon(Icons.add),
             color: Colors.white,
             iconSize: 30,
@@ -45,13 +93,13 @@ class MyHomePage extends StatelessWidget {
                 child: Text('Gráfico'),
               ),
             ),
-            TransactionUser(),
+            TransactionList(transactions: _transactions),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue,
-        onPressed: () {},
+        onPressed: () => _openTransactionFormModal(context),
         child: Icon(Icons.add, color: Colors.white, size: 30),
       ),
     );
