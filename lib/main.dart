@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:project_expenses/components/transaction_form.dart';
-
 import 'dart:math';
+
+import '/components/chart.dart';
+import '/components/transaction_form.dart';
 import 'components/transaction_list.dart';
 import 'models/transaction.dart';
 
@@ -54,19 +55,31 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [
-    // Transaction(
-    //   id: 't1',
-    //   title: 'Spider Man 2',
-    //   value: 200.00,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't2',
-    //   title: 'Compras Supermercado',
-    //   value: 341.20,
-    //   date: DateTime.now(),
-    // ),
+    Transaction(
+      id: 't0',
+      title: 'Conta Antiga de Agua',
+      value: 100.00,
+      date: DateTime.now().subtract(Duration(days: 33)),
+    ),
+    Transaction(
+      id: 't1',
+      title: 'Spider Man 2',
+      value: 200.00,
+      date: DateTime.now().subtract(Duration(days: 3)),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Compras Supermercado',
+      value: 341.20,
+      date: DateTime.now().subtract(Duration(days: 10)),
+    ),
   ];
+
+  List<Transaction> get _recentTransactions {
+    return _transactions.where((transaction) {
+      return transaction.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
 
   dynamic _addTransaction(String title, double value) {
     final newTransaction = Transaction(
@@ -113,14 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            SizedBox(
-              width: double.infinity,
-              child: Card(
-                color: Colors.blue,
-                elevation: 5,
-                child: Text('Gráfico'),
-              ),
-            ),
+            Chart(recentTransaction: _recentTransactions),
             TransactionList(transactions: _transactions),
           ],
         ),
