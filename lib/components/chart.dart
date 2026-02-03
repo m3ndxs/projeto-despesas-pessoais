@@ -20,12 +20,12 @@ class Chart extends StatelessWidget {
         bool sameYear = recentTransaction[i].date.year == weekDay.year;
 
         if (sameDay && sameMonth && sameYear) {
-          totalSum = recentTransaction[i].value;
+          totalSum += recentTransaction[i].value;
         }
       }
 
       return {'day': DateFormat.E().format(weekDay)[0], 'value': totalSum};
-    });
+    }).reversed.toList();
   }
 
   double get _weekTotalValue {
