@@ -44,6 +44,23 @@ class _TransactionFormState extends State<TransactionForm> {
               keyboardType: TextInputType.numberWithOptions(decimal: true),
               decoration: InputDecoration(labelText: 'Valor (R\$)'),
             ),
+            SizedBox(
+              height: 70,
+              child: Row(
+                children: <Widget>[
+                  Text('Nenhuma Data Selecionada!'),
+                  ElevatedButton(
+                    child: Text(
+                      'Selecionada Data',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),  
+                    ),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
