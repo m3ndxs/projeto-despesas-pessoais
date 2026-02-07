@@ -3,9 +3,10 @@ import 'package:intl/intl.dart';
 import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
-  const TransactionList({super.key, required this.transactions});
+  const TransactionList({super.key, required this.transactions, required this.onRemove});
 
   final List<Transaction> transactions;
+  final void Function(String) onRemove;
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +16,12 @@ class TransactionList extends StatelessWidget {
           ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SizedBox(height: 20,),
+                SizedBox(height: 20),
                 Text(
                   'Nenhuma Transação Cadastrada!',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
-                SizedBox(height: 40,),
+                SizedBox(height: 40),
                 SizedBox(
                   height: 250,
                   child: Image.asset(
@@ -36,12 +37,9 @@ class TransactionList extends StatelessWidget {
                 final transaction = transactions[index];
                 return Card(
                   elevation: 5,
-                  margin: EdgeInsets.symmetric(
-                    vertical: 8,
-                    horizontal: 5,
-                  ),
-                  child: ListTile (
-                    leading: CircleAvatar (
+                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                  child: ListTile(
+                    leading: CircleAvatar(
                       backgroundColor: Theme.of(context).colorScheme.primary,
                       radius: 30,
                       child: Padding(
@@ -51,12 +49,17 @@ class TransactionList extends StatelessWidget {
                         ),
                       ),
                     ),
-                    title: Text (
+                    title: Text(
                       transaction.title,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     subtitle: Text(
                       DateFormat('d MMM y').format(transaction.date),
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      color: Colors.red,
+                       onPressed: () => onRemove(transaction.id),
                     ),
                   ),
                 );
