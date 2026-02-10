@@ -6,9 +6,17 @@ class ChartPie extends StatelessWidget {
 
   final Map<String, double> expensesByCategory;
 
+  static final Map<String, Color> categoryColors = {
+    'Compras': Color(0xFF8E24AA),
+    'Alimentação': Color(0xFFF9A825),
+    'Transporte': Color(0xFF1E88E5),
+    'Lazer': Color(0xFF43A047),
+    'Outros': Color(0xFF757575),
+  };
+
   @override
   Widget build(BuildContext context) {
-    if(expensesByCategory.isEmpty){
+    if (expensesByCategory.isEmpty) {
       return Padding(
         padding: EdgeInsetsGeometry.symmetric(vertical: 16),
         child: Text('Nenhuma despesa nesse mês!'),
@@ -35,6 +43,7 @@ class ChartPie extends StatelessWidget {
                 final percentage = (entry.value / totalExpenses) * 100;
                 return PieChartSectionData(
                   value: entry.value,
+                  color: categoryColors[entry.key] ?? Colors.grey,
                   title: '${entry.key}\n${percentage.toStringAsFixed(0)}%',
                   radius: 90,
                   titleStyle: TextStyle(

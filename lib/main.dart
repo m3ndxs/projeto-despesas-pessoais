@@ -49,24 +49,15 @@ class ExpensesApp extends StatelessWidget {
           ),
         ),
         inputDecorationTheme: InputDecorationTheme(
-          labelStyle: TextStyle(
-            color: Colors.white70,
-          ),
-          floatingLabelStyle: TextStyle(
-            color: Colors.white70,
-          ),
+          labelStyle: TextStyle(color: Colors.white70),
+          floatingLabelStyle: TextStyle(color: Colors.white70),
           enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.grey.shade600,
-            ),
+            borderSide: BorderSide(color: Colors.grey.shade600),
           ),
           focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.white70,
-              width: 2
-            ),
+            borderSide: BorderSide(color: Colors.white70, width: 2),
           ),
-        )
+        ),
       ),
     );
   }
@@ -80,7 +71,78 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _transactions = [];
+  final List<Transaction> _transactions = [
+    Transaction(
+      id: 't1',
+      title: 'Supermercado',
+      value: 180.50,
+      date: DateTime.now().subtract(const Duration(days: 1)),
+      category: 'Alimentação',
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Uber',
+      value: 32.90,
+      date: DateTime.now().subtract(const Duration(days: 2)),
+      category: 'Transporte',
+    ),
+    Transaction(
+      id: 't3',
+      title: 'Cinema',
+      value: 45.00,
+      date: DateTime.now().subtract(const Duration(days: 3)),
+      category: 'Lazer',
+    ),
+    Transaction(
+      id: 't4',
+      title: 'Roupas',
+      value: 250.00,
+      date: DateTime.now().subtract(const Duration(days: 4)),
+      category: 'Compras',
+    ),
+    Transaction(
+      id: 't5',
+      title: 'Restaurante',
+      value: 89.90,
+      date: DateTime.now().subtract(const Duration(days: 5)),
+      category: 'Alimentação',
+    ),
+    Transaction(
+      id: 't6',
+      title: 'Gasolina',
+      value: 120.00,
+      date: DateTime.now().subtract(const Duration(days: 6)),
+      category: 'Transporte',
+    ),
+    Transaction(
+      id: 't7',
+      title: 'Streaming',
+      value: 39.90,
+      date: DateTime.now().subtract(const Duration(days: 8)),
+      category: 'Lazer',
+    ),
+    Transaction(
+      id: 't8',
+      title: 'Farmácia',
+      value: 67.30,
+      date: DateTime.now().subtract(const Duration(days: 10)),
+      category: 'Outros',
+    ),
+    Transaction(
+      id: 't9',
+      title: 'Lanche',
+      value: 24.50,
+      date: DateTime.now().subtract(const Duration(days: 0)),
+      category: 'Alimentação',
+    ),
+    Transaction(
+      id: 't10',
+      title: 'Assinatura Cloud',
+      value: 59.99,
+      date: DateTime.now().subtract(const Duration(days: 12)),
+      category: 'Outros',
+    ),
+  ];
 
   List<Transaction> get _recentTransactions {
     return _transactions.where((transaction) {
