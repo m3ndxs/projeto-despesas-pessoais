@@ -11,7 +11,7 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 450,
+      height: 270,
       child: transactions.isEmpty
           ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -22,11 +22,12 @@ class TransactionList extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 SizedBox(height: 40),
-                SizedBox(
-                  height: 250,
-                  child: Image.asset(
-                    'assets/images/waiting.png',
-                    fit: BoxFit.cover,
+                Expanded(
+                  child: SizedBox(
+                    child: Image.asset(
+                      'assets/images/waiting.png',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ],
@@ -53,8 +54,15 @@ class TransactionList extends StatelessWidget {
                       transaction.title,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    subtitle: Text(
-                      DateFormat('d MMM y').format(transaction.date),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(transaction.category),
+                        SizedBox(height: 3),
+                        Text(
+                          DateFormat('d MMM y').format(transaction.date),
+                        ),
+                      ],
                     ),
                     trailing: IconButton(
                       icon: Icon(Icons.delete),

@@ -18,38 +18,53 @@ class ExpensesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       locale: const Locale('pt', 'BR'),
-      supportedLocales: const [
-        Locale('pt', 'BR'),
-        Locale('en', 'US'),
-      ],
+      supportedLocales: const [Locale('pt', 'BR'), Locale('en', 'US')],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      debugShowCheckedModeBanner: false, 
+      debugShowCheckedModeBanner: false,
       home: MyHomePage(),
       theme: ThemeData(
         useMaterial3: false,
         appBarTheme: AppBarTheme(
-          titleTextStyle: TextStyle(
-            fontFamily: 'OpenSans',
-            fontSize: 20,
-          ),
-          backgroundColor: Colors.purple,
-          foregroundColor: Colors.white,
+          titleTextStyle: TextStyle(fontFamily: 'OpenSans', fontSize: 20),
+          backgroundColor: Color(0xFF121212),
+          foregroundColor: Colors.white70,
         ),
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.amber,
-          primary: Colors.purple,
-          secondary: Colors.amber,
+          seedColor: Color(0xFF1E2A38),
+          primary: Color(0xFF1E2A38),
+          secondary: Color(0xFFFFB703),
+          brightness: Brightness.dark,
         ),
         fontFamily: 'QuickSand',
-        textTheme: ThemeData.light().textTheme.copyWith(
+        textTheme: ThemeData.dark().textTheme.copyWith(
           titleLarge: TextStyle(
             fontFamily: 'OpenSans',
             fontSize: 18,
             fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          labelStyle: TextStyle(
+            color: Colors.white70,
+          ),
+          floatingLabelStyle: TextStyle(
+            color: Colors.white70,
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.grey.shade600,
+            ),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.white70,
+              width: 2
+            ),
           ),
         )
       ),
@@ -65,22 +80,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _transactions = [
-    
-  ];
+  final List<Transaction> _transactions = [];
 
   List<Transaction> get _recentTransactions {
     return _transactions.where((transaction) {
-      return transaction.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+      return transaction.date.isAfter(
+        DateTime.now().subtract(Duration(days: 7)),
+      );
     }).toList();
   }
 
-  dynamic _addTransaction(String title, double value, DateTime date) {
+  dynamic _addTransaction(
+    String title,
+    double value,
+    DateTime date,
+    String category,
+  ) {
     final newTransaction = Transaction(
       id: Random().nextDouble().toString(),
       title: title,
       value: value,
       date: date,
+      category: category,
     );
 
     setState(() {
@@ -109,14 +130,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Despesas Pessoais',
-          style: TextStyle(fontSize: 22,),
-        ),
+        title: Text('Despesas Pessoais', style: TextStyle(fontSize: 22)),
         actions: <Widget>[
           IconButton(
             onPressed: () => _openTransactionFormModal(context),
-            icon: Icon(Icons.add,),
+            icon: Icon(Icons.add),
             color: Colors.white,
             iconSize: 30,
           ),
@@ -127,7 +145,10 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Chart(recentTransaction: _recentTransactions),
-            TransactionList(transactions: _transactions, onRemove: _removeTransaction,),
+            TransactionList(
+              transactions: _transactions,
+              onRemove: _removeTransaction,
+            ),
           ],
         ),
       ),

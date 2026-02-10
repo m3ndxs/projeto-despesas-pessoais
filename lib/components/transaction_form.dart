@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 class TransactionForm extends StatefulWidget {
   const TransactionForm({super.key, required this.onSubmit});
 
-  final void Function(String, double, DateTime) onSubmit;
+  final void Function(String, double, DateTime, String) onSubmit;
 
   @override
   State<TransactionForm> createState() => _TransactionFormState();
@@ -13,17 +13,20 @@ class TransactionForm extends StatefulWidget {
 class _TransactionFormState extends State<TransactionForm> {
   final _titleController = TextEditingController();
   final _valueController = TextEditingController();
+  final _categoryController = TextEditingController();
+
   DateTime _selectedDate = DateTime.now();
 
   dynamic _submitForm() {
-   final title = _titleController.text;
+    final title = _titleController.text;
     final value = double.tryParse(_valueController.text) ?? 0.0;
+    final category = _categoryController.text;
 
-    if (title.isEmpty || value <= 0) {
+    if (title.isEmpty || value <= 0 || category.isEmpty) {
       return;
     }
 
-    widget.onSubmit(title, value, _selectedDate);
+    widget.onSubmit(title, value, _selectedDate, category);
   }
 
   dynamic _showDatePicker() {
@@ -58,6 +61,11 @@ class _TransactionFormState extends State<TransactionForm> {
               decoration: InputDecoration(labelText: 'Título'),
             ),
             TextField(
+              controller: _categoryController,
+              onSubmitted: (_) => _submitForm(),
+              decoration: InputDecoration(labelText: 'Categoria'),
+            ),
+            TextField(
               controller: _valueController,
               onSubmitted: (_) => _submitForm(),
               keyboardType: TextInputType.numberWithOptions(decimal: true),
@@ -73,6 +81,9 @@ class _TransactionFormState extends State<TransactionForm> {
                     ),
                   ),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.grey.shade400,
+                    ),
                     onPressed: _showDatePicker,
                     child: Text(
                       'Selecionada Data',
@@ -91,6 +102,7 @@ class _TransactionFormState extends State<TransactionForm> {
                   onPressed: _submitForm,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.primary,
+                    foregroundColor: Colors.grey.shade400
                   ),
                   child: Text('Nova Transação'),
                 ),
